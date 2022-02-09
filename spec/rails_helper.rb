@@ -36,7 +36,8 @@ RSpec.configure do |config|
   # Add `FactoryBot` methods
   config.include FactoryBot::Syntax::Methods
 
-  config.include RequestSpecHelper, type: :request
+  config.include RequestSpecHelper
+  config.include ControllerSpecHelper
 
   # Start by truncating all the tables but then use the faster transaction strategy the rest of the time
   config.before(:suite) do
