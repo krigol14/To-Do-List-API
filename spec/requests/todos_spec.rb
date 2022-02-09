@@ -1,7 +1,8 @@
+# ToDo API
 require 'rails_helper'
 
 RSpec.describe 'Todos API', type: :request do
-  # initialize test data
+  # initialize test data with a list of 10 records thank to factory bot
   let!(:todos) { create_list(:todo, 10) }
   let(:todo_id) { todos.first.id }
 
@@ -11,7 +12,7 @@ RSpec.describe 'Todos API', type: :request do
     before { get '/todos' }
 
     it 'returns todos' do
-      # Note `json` is a custom helper to parse JSON responses
+      # Note `json` is a custom helper to parse JSON responses (support/request_spec_helper.rb)
       expect(json).not_to be_empty
       expect(json.size).to eq(10)
     end

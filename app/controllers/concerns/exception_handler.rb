@@ -1,3 +1,4 @@
+# file used in order to handle the exceptions which might occure from the todos_controller.rb
 module ExceptionHandler
     # provides the more graceful `included` method
     extend ActiveSupport::Concern

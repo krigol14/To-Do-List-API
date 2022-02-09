@@ -35,9 +35,10 @@ RSpec.configure do |config|
   
   # Add `FactoryBot` methods
   config.include FactoryBot::Syntax::Methods
+
   config.include RequestSpecHelper, type: :request
 
-  # Start by truncating all the tables but then use the faster transaction strategy the rest of the time.
+  # Start by truncating all the tables but then use the faster transaction strategy the rest of the time
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction

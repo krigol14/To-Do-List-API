@@ -37,6 +37,9 @@ class TodosController < ApplicationController
       params.permit(:title, :created_by)
     end
   
+    # callback method to find a todo using its id
+    # in case the record does not exist, ActiveRecord will throw an exception
+    # rescued from this exception by throwing a 404 message (controllers/concerns/exception_handler.rb)
     def set_todo
       @todo = Todo.find(params[:id])
     end
