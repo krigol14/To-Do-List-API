@@ -3,15 +3,17 @@ class TodosController < ApplicationController
   
     # GET /todos
     def index
-      @todos = Todo.all
+      # get current user todos
+      @todos = current_user.todos
       json_response(@todos)
-    end
+    end  
   
     # POST /todos
     def create
-      @todo = Todo.create!(todo_params)
+      # create todos belonging to current user
+      @todo = current_user.todos.create!(todo_params)
       json_response(@todo, :created)
-    end
+    end  
   
     # GET /todos/:id
     def show
@@ -33,9 +35,8 @@ class TodosController < ApplicationController
     private
   
     def todo_params
-      # whitelist params
-      params.permit(:title, :created_by)
-    end
+      params.permit(:title)
+    end  
   
     # callback method to find a todo using its id
     # in case the record does not exist, ActiveRecord will throw an exception
