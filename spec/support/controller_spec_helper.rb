@@ -1,4 +1,4 @@
-# test helper methods used in the authorize_api_request_spec.rb file
+# helper methods used in the authorize_api_request_spec.rb for testing purposes
 module ControllerSpecHelper
     # generate tokens from user id
     def token_generator(user_id)
