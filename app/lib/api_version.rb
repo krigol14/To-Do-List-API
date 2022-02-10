@@ -1,3 +1,4 @@
+# Class which checks the API version from the request headers and routes to the appropriate controller module
 class ApiVersion
     attr_reader :version, :default
   
