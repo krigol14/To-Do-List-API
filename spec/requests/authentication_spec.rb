@@ -1,3 +1,4 @@
+# testing file for the AuthenticationController class
 require 'rails_helper'
 
 RSpec.describe 'Authentication', type: :request do

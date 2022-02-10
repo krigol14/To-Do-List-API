@@ -1,3 +1,4 @@
+# class responsible for orchestrating the authentication process using the classes we created previously
 class AuthenticationController < ApplicationController
     skip_before_action :authorize_request, only: :authenticate
     # return auth token once user is authenticated

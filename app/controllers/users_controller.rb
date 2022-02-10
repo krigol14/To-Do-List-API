@@ -1,3 +1,4 @@
+# class which gives users the ability to signup before authenticating
 class UsersController < ApplicationController
     skip_before_action :authorize_request, only: :create
     # POST /signup
