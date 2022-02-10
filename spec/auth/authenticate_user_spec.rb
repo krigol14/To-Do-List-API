@@ -1,3 +1,4 @@
+# testing file for the AuthenticateUser class - app/auth/authenticate_user.rb
 require 'rails_helper'
 
 RSpec.describe AuthenticateUser do

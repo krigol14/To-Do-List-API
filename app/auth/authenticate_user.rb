@@ -1,3 +1,5 @@
+# class responsible for authenticating user via email and password
+# accepts a user email and password, checks if they are valid and then generates a token with the user is as the payload
 class AuthenticateUser
     def initialize(email, password)
       @email = email
@@ -21,4 +23,3 @@ class AuthenticateUser
       raise(ExceptionHandler::AuthenticationError, Message.invalid_credentials)
     end
   end
-  
