@@ -1,4 +1,4 @@
-# spec/factories/users.rb
+# model factory which will provide the test data for the user's name and credentials
 FactoryBot.define do
     factory :user do
       name { Faker::Name.name }

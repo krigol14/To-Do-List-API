@@ -3,7 +3,7 @@ class CreateItems < ActiveRecord::Migration[7.0]
     create_table :items do |t|
       t.string :name
       t.boolean :done
-      t.references :todo, null: false, foreign_key: true
+      t.references :todo, null: false, foreign_key: true  # set up association with the ToDo model
 
       t.timestamps
     end

@@ -1,4 +1,4 @@
-# model factory - which will provide the test data
+# model factory which will provide the test data for the todo items
 FactoryBot.define do
     factory :item do
       # faker generates dynamic data every time the model factory is called 
