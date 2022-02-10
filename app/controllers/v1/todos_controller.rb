@@ -1,4 +1,5 @@
-class TodosController < ApplicationController
+module V1
+  class TodosController < ApplicationController
     before_action :set_todo, only: [:show, :update, :destroy]
   
     # GET /todos
@@ -43,3 +44,4 @@ class TodosController < ApplicationController
       @todo = Todo.find(params[:id])
     end
   end
+end
