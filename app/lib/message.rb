@@ -1,4 +1,4 @@
-# app/lib/message.rb
+# singleton Message to house all our messages as its an easier way to manage our application messages
 class Message
     def self.not_found(record = 'record')
       "Sorry, #{record} not found."

@@ -1,3 +1,4 @@
+# testing file for the AuthorizeApiRequest file
 require 'rails_helper'
 
 RSpec.describe AuthorizeApiRequest do

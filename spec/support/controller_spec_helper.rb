@@ -1,11 +1,11 @@
 # helper methods used in the authorize_api_request_spec.rb for testing purposes
 module ControllerSpecHelper
-    # generate tokens from user id
+    # generate test tokens using the user_id
     def token_generator(user_id)
       JsonWebToken.encode(user_id: user_id)
     end
   
-    # generate expired tokens from user id
+    # generate expired tokens using the user_id
     def expired_token_generator(user_id)
       JsonWebToken.encode({ user_id: user_id }, (Time.now.to_i - 10))
     end

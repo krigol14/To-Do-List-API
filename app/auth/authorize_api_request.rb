@@ -1,3 +1,5 @@
+# class responsible for authorizing all API requests, making sure that all of them have a valid token and user credentials
+# gets the token from the authorization headers, attemps to decode it to return a valid user object
 class AuthorizeApiRequest
     def initialize(headers = {})
       @headers = headers
@@ -16,10 +18,10 @@ class AuthorizeApiRequest
   
     def user
       # check if user is in the database
-      # memoize user object
+      # memorize user object
       @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
       # handle user not found
-    rescue ActiveRecord::RecordNotFound => e
+      rescue ActiveRecord::RecordNotFound => e
       # raise custom error
       raise(
         ExceptionHandler::InvalidToken,
