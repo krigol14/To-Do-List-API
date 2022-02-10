@@ -33,6 +33,9 @@ gem "bootsnap", require: false
 # JSON Web Token
 gem "jwt"
 
+# Serializers allow for custom representations of JSON responses.
+gem 'active_model_serializers', '~> 0.10.0'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
