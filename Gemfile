@@ -36,6 +36,12 @@ gem "jwt"
 # Serializers allow for custom representations of JSON responses.
 gem 'active_model_serializers', '~> 0.10.0'
 
+# Makes sure the requests are fast and optimized.
+gem 'will_paginate', '~> 3.1.0'
+
+# Faker generates data at random.
+gem 'faker'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
