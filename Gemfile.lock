@@ -192,6 +192,9 @@ GEM
       activesupport (>= 4.0.0)
     sqlite3 (1.4.2)
     strscan (3.0.1)
+    swagger-docs (0.2.9)
+      activesupport (>= 3)
+      rails (>= 3)
     thor (1.2.1)
     timeout (0.2.0)
     tzinfo (2.0.4)
@@ -219,6 +222,7 @@ DEPENDENCIES
   rspec-rails (~> 5.1.0)
   shoulda-matchers (~> 3.1)
   sqlite3 (~> 1.4)
+  swagger-docs
   tzinfo-data
   will_paginate (~> 3.1.0)
 
