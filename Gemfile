@@ -25,5 +25,5 @@ group :test do
   gem 'factory_bot_rails', '~> 4.0'   # library that provides methods to create test fixtures for automated software testing
   gem 'shoulda-matchers', '~> 3.1'    # provides RSpec with additional matchers
   gem 'database_cleaner'              # cleans db before each test suite
-  # gem 'sqlite3', '~> 1.4'
+  gem 'sqlite3', '~> 1.4'
 end
