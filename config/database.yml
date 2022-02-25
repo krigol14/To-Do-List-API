@@ -7,7 +7,7 @@ development:
   <<: *default
   database: To-Do-List-API_development
   username: kristiangolemi
-  password: "@n534090"
+  password: 
 
 test:
   <<: *default
