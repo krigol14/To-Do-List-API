@@ -1,6 +1,8 @@
+require 'faker'
+
 # seed 50 records
 50.times do
-    # todo = Todo.create(title: Faker::Lorem.word, created_by: User.first.id)
-    todo = Todo.create(title: Faker::Lorem.word, created_by: User)
+    todo = Todo.create(title: Faker::Lorem.word, created_by: User.first.id)
+    # todo = Todo.create(title: Faker::Lorem.word, created_by: User)
     todo.items.create(name: Faker::Lorem.word, done: false)
   end
