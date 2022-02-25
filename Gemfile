@@ -11,11 +11,11 @@ gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'will_paginate', '~> 3.1.0'
 gem 'pg'
+gem 'faker' 
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'rspec-rails', '~> 5.1.0'
-  gem 'faker' 
 end
 
 group :development do 
