@@ -1,0 +1,551 @@
+swagger: "2.0"
+info:
+  description: "To-Do List API - a final project for the university class Software as a Service."
+  version: "1.0.0"
+  title: "To-Do-List API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "0713549@gmail.com"
+  license:
+    name: "Github repository"
+    url: "https://github.com/krigol14/To-Do-List-API"
+host: "localhost:3000"
+basePath: "/"
+
+tags:
+- name: "todos"
+  description: "Access your todos after logging in"
+  externalDocs:
+    description: "Your personal To-Do List"
+    url: "http://localhost:3000/todos"
+    
+- name: "signup"
+  description: "Sign up in order to create your own To-Do-List"
+  externalDocs:
+    description: "A portal to sign up to our service"
+    url: "http://localhost:3000/signup"
+    
+- name: "auth"
+  description: "Login - Logout functions"
+  externalDocs:
+    description: "Login using your authentication token"
+    url: "http://localhost:3000/auth/login"
+    
+schemes:
+- "http"
+
+paths:
+  /todos:
+    get:
+      tags:
+      - "todos"
+      summary: "List all todos"
+      consumes:
+        - "application/json"
+      parameters:
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+        required: true
+
+            
+      description: "Your Personal JWT"
+      produces:
+      - "application/json"
+      responses:
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Missing Token"
+               #example: "Signature verification raised" otan to JWT einai lathos
+               #example: "Signature has expired" raised otan to JWT exei lhksei
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Todo"
+    post:
+      tags:
+      - "todos"
+      summary: "Create a new todo"
+      description: ""
+      operationId: "create"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+        required: true
+      - in: "body"
+        name: "title"
+        schema:
+          title: "title"
+        required: true
+        description: "Title of the ToDo"
+      responses:
+        "201":
+          description: "Created"
+          schema:
+            properties:
+              created-at:
+                type: "string"
+                example: "2022-02-18T18:48:48.855Z"
+              created-by:
+                type: "string"
+                example: "3"
+              id:
+                type: "string"
+                example: "53"
+              items:
+                type: "array"
+                example: "[]"
+              title:
+                type: "string"
+                example: "Todo1"
+              updated-at:
+                type: "string"
+                example: "2022-02-18T18:48:48.855Z"
+                required:
+                 - "false"          
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Missing Token"
+
+  /todos/{id}:
+    get:
+      tags:
+      - "todos"
+      summary: "Get a todo"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+        required: true
+      - in: "path"
+        name: "id"
+        description: "The id of the specific todo listing we want to fetch"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Todo"
+        "404":
+          description: "Not Found"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Couldn't find Todo with 'id'=100"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Missing Token"
+          
+    put:
+      tags:
+      - "todos"
+      summary: "Update a todo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+        required: true
+      - in: "path"
+        name: "id"
+        type: "integer"
+        description: "The id of the specific todo listing we want to update"
+        required: true
+      - in: "body"
+        name: "title"
+        schema:
+          title: "title"
+        required: true
+        description: "Title of the ToDo"
+      responses:
+        "204":
+          description: "No Content"
+        "404":
+          description: "Not Found"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Couldn't find Todo with 'id'=100"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Missing Token"
+    delete:
+      tags:
+      - "todos"
+      summary: "Deletes a todo and its items"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+        required: true
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "204":
+          description: "No Content"
+        "404":
+          description: "Not Found"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Couldn't find Todo with 'id'=100"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Missing Token"
+
+  /todos/{todo_id}/items:
+    get:
+      tags:
+      - "todos"
+      summary: "Get a todo item"
+      description: "List all the items of the To-Do"
+      operationId: "show"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+        required: true
+      - name: "todo_id"
+        in: "path"
+        description: "The id of the specific todo listing whose items we want to fetch"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Todo"
+        "404":
+          description: "Not Found"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Missing Token"
+              #example: "Validation failed: Name can't be blank"
+    post:
+      tags:
+      - "todos"
+      summary: "Create a todo item"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+        required: true
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+            done:
+              type: "boolean"
+      - in: "path"
+        name: "todo_id"
+        description: "The id of the specific todo listing whose items we want to update"
+        required: true
+        type: "integer"
+      responses:
+        "201":
+          description: "Created"
+          schema:
+            $ref: "#/definitions/Todo"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Missing Token"
+  
+  /todos/{todo_id}/items/{id}:
+    put:
+      tags:
+      - "todos"
+      summary: "Update a todo item"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+        required: true
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+            done:
+              type: "boolean"
+      - in: "path"
+        name: "todo_id"
+        description: "The id of the specific todo listing whose items we want to update"
+        required: true
+        type: "integer"
+      - in: "path"
+        name: "id"
+        type: "string"
+        required: true
+      responses:
+        "204":
+          description: "No Content"
+        "404":
+          description: "Not Found"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Couldn't find Item with 'id'=100"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Missing Token"
+    delete:
+      tags:
+      - "todos"
+      summary: "Deletes a todo item"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Authorization"
+        type: "string"
+        required: true
+      - in: "path"
+        name: "todo_id"
+        description: "The id of the specific todo listing whose items we want to delete"
+        required: true
+        type: "integer"
+      - in: "path"
+        name: "id"
+        type: "string"
+        required: true
+      responses:
+        "204":
+          description: "No Content"
+        "404":
+          description: "Not Found"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Couldn't find Item with 'id'=100"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Missing Token"
+
+  /signup:
+    post:
+      tags:
+      - "signup"
+      summary: "Signup"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+              email:
+                type: "string"
+              password:
+                type: "string"
+              password_confirmation:
+                type: "string"
+      responses:
+        "201":
+          description: "Created"
+          schema:
+            properties:
+              auth_token:
+                type: "string"
+                example: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE2NDU5NzY2NDB9.QM3LDWm6tsocTsteLuaCeq3c7rvqgEqTY5YYE3JzQGc"
+              message:
+                type: "string"
+                example: "Account created successfully"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Validation failed: Name can't be blank"
+        
+  /auth/login:
+    post:
+      tags:
+      - "auth"
+      summary: "Login"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+              password:
+                type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              auth_token:
+                type: "string"
+                example: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE2NDU5NzY2NDB9.QM3LDWm6tsocTsteLuaCeq3c7rvqgEqTY5YYE3JzQGc"
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: "string"
+                example: "Invalid credentials"
+        
+
+  /auth/logout:
+    get:
+      tags:
+      - "auth"
+      summary: "Logout"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "Not Found"
+
+definitions:
+  Todo:
+    type: "object"
+    properties:
+      created-at:
+        type: "string"
+        example: "2022-02-18T18:48:48.855Z"
+      created-by:
+        type: "string"
+        example: "3"
+      id:
+        type: "string"
+        example: "56"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/Item"
+      title:
+        type: "string"
+        example: "Todo1"
+      updated-at:
+        type: "string"
+        example: "2022-02-18T18:48:48.855Z"
+        required:
+         - "false"
+  Item:
+    type: "object"
+    properties:
+      created_at:
+        type: "string"
+        example: "2022-02-25T20:53:26.483Z"
+      done:
+        type: "boolean"
+        example: "false"
+      id:
+        type: "string"
+        example: "52"
+      name:
+        type: "string"
+        example: "Item1"
+      todo_id:
+        type: "string"
+        example: "56"
+      updated-at:
+        type: "string"
+        example: "2022-02-25T20:53:26.483Z"
+        required:
+         - "false"
+      
+  User:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      email:
+        type: "string"
+      password_digest:
+        type: "string"
